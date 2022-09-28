@@ -1,6 +1,34 @@
 import json
 import matplotlib.pyplot as plt
+import sys
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+def search_affiliation(papers, name):
+    count = 0
+    for paper in papers:
+        for author in paper['authors']:
+            if name in author['affiliation']:
+                print(f"{bcolors.WARNING}{count+1:<4}{paper['title']}{bcolors.ENDC}")
+                for author1 in paper['authors']:
+                    if name in author1['affiliation']:
+                        line = f'    {bcolors.OKGREEN}{author1["name"]:<20}{bcolors.ENDC}  {bcolors.FAIL}{author1["affiliation"]:<12}{bcolors.ENDC}'
+                    else:
+                        line = f'    {author1["name"]:<20}  {author1["affiliation"]:<12}'
+                    print(line)
+                print("\n")
+                count += 1
+                break
 
 def count_affiliation(papers):
     # count different affiliations
@@ -236,11 +264,13 @@ def main():
             paper = json.loads(line)
             # do something with paper
             papers.append(paper)
-    print(len(papers))
-    count_affiliation(papers)
-    count_first_affiliations(papers)
+    
+    search_affiliation(papers, sys.argv[1])
+    # print(len(papers))
+    # count_affiliation(papers)
+    # count_first_affiliations(papers)
 
-    print('done')
+    # print('done')
 
 
 if __name__ == '__main__':

@@ -28,11 +28,9 @@ then can get the accepted paper list.
 Then run 
 
 ```
-python data_analyze.py
+python data_analyze.py <keyword>
 ```
 
-to analyze the data.
+### Result
 
-We generate the following figure. 
-
-![first_affiliations](https://github.com/SGEthan/NeurIPS2022_Paper_Retrieving/blob/main/first_affiliations.png)
+![highlight](https://github.com/junliang-lin/NeurIPS2022_Paper_Retrieving/blob/main/highlight.png)
